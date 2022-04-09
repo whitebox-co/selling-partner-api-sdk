@@ -1,9 +1,15 @@
+// eslint-disable-next-line eslint-comments/disable-enable-pair
+/* eslint-disable unicorn/import-style */
 import axios from 'axios'
+import util from 'util'
+import zlib from 'zlib'
 
 // eslint-disable-next-line import/no-cycle
 import { ReportsApiClientV20210630 } from '../api-clients/reports-api-client-v20210630'
 import { AMAZON_US_MARKETPLACE_ID } from './constants'
 import { sleep, tabDelimitedToArray } from './utils'
+
+const gunzip = util.promisify(zlib.gunzip)
 
 export interface ReportParameters {
   startDate: string
@@ -53,9 +59,18 @@ export class ReportHelpers {
       reportDocumentId,
     })
 
-    // fetch the raw content
-    const contentResponse = await axios.get(documentResponse.data.url)
-    const rawData = contentResponse.data
+    let rawData
+    if (documentResponse.data.compressionAlgorithm === 'GZIP') {
+      const contentResponse = await axios.get(documentResponse.data.url, {
+        responseType: 'arraybuffer',
+      })
+      const deflated = await gunzip(contentResponse.data)
+      rawData = deflated.toString('utf8')
+    } else {
+      // fetch the raw content
+      const contentResponse = await axios.get(documentResponse.data.url)
+      rawData = contentResponse.data
+    }
 
     // optionally parse the results
     if (parse) {
