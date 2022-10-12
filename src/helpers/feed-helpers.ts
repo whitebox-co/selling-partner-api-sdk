@@ -75,7 +75,7 @@ export class FeedHelpers {
 
     let resultFeedDocumentId = ''
     let feedStatus = ''
-    let attempts = 1
+    let attempts = 0
     while (feedStatus !== 'DONE') {
       // eslint-disable-next-line no-await-in-loop
       await sleep(sleepTime)
