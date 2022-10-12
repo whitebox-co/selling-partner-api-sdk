@@ -6,7 +6,7 @@ import { AMAZON_US_MARKETPLACE_ID } from './constants'
 import { sleep } from './utils'
 
 export interface GetFeedHelperResult {
-  hasErrors: boolean
+  resultDescription: string
   xmlResponse: string
 }
 
@@ -75,7 +75,7 @@ export class FeedHelpers {
 
     let resultFeedDocumentId = ''
     let feedStatus = ''
-    let attempts = 0
+    let attempts = 1
     while (feedStatus !== 'DONE') {
       // eslint-disable-next-line no-await-in-loop
       await sleep(sleepTime)
@@ -89,7 +89,12 @@ export class FeedHelpers {
       resultFeedDocumentId = feedResult.data?.resultFeedDocumentId || ''
 
       // prevent infinite while loop
-      attempts += 1
+      // we may end up in a scenario where we are on the last attempt and we get a done status but because this increments regardless
+      // of the status, we get a rejected response
+      if (feedStatus !== 'DONE') {
+        attempts += 1
+      }
+
       if (attempts > maxAttempts) {
         throw new Error(`Too many attempts to fetch a DONE response for feed ${feedId}`)
       }
@@ -103,10 +108,10 @@ export class FeedHelpers {
     // get the feed document itself
     const { data } = await axios.get(feedDocumentResult.data.url)
 
-    const hasErrors = data.match(/ResultDescription>([^<]+)/)?.[1]
+    const resultDescription = data.match(/ResultDescription>([^<]+)/)?.[1]
 
     return {
-      hasErrors,
+      resultDescription,
       xmlResponse: data,
     }
   }
