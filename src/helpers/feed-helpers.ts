@@ -90,8 +90,8 @@ export class FeedHelpers {
       console.debug(`Feed status for feedId ${feedId}: ${feedStatus}`)
       resultFeedDocumentId = feedResult.data?.resultFeedDocumentId || ''
 
-      // we may end up in a scenario where we are on the last attempt and we get a done status but because this increments regardless
-      // of the status, we get a rejected response
+      // we may end up in a scenario where we are on the last attempt and we get a
+      // done status but because this increments regardless of the status, we get a rejected response
       if (feedStatus !== 'DONE') {
         attempts += 1
       }
@@ -110,6 +110,8 @@ export class FeedHelpers {
     // get the feed document itself
     const { data } = await axios.get(feedDocumentResult.data.url)
 
+    // amazon returns an xml with this tag <ResultDescription> in it
+    // if there was something wrong  with processing the feed and we want to extract that message and return it
     const feedErrorMessage = data.match(/ResultDescription>([^<]+)/)?.[1]
 
     return {
