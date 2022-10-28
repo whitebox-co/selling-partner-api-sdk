@@ -78,9 +78,6 @@ export class FeedHelpers {
     let attempts = 0
     while (feedStatus !== 'DONE') {
       // eslint-disable-next-line no-await-in-loop
-      await sleep(sleepTime)
-
-      // eslint-disable-next-line no-await-in-loop
       const feedResult = await feedsApiClient.getFeed({
         feedId,
       })
@@ -99,6 +96,12 @@ export class FeedHelpers {
       // prevent infinite while loop
       if (attempts > maxAttempts) {
         throw new Error(`Too many attempts to fetch a DONE response for feed ${feedId}`)
+      }
+
+      // prevent the sleep if we're already finished
+      if (feedStatus !== 'DONE') {
+        // eslint-disable-next-line no-await-in-loop
+        await sleep(sleepTime)
       }
     }
 
