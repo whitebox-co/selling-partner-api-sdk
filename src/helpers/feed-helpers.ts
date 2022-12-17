@@ -6,7 +6,7 @@ import { AMAZON_US_MARKETPLACE_ID } from './constants'
 import { sleep } from './utils'
 
 export interface GetFeedHelperResult {
-  hasErrors: boolean
+  feedErrorMessage?: string
   xmlResponse: string
 }
 
@@ -78,20 +78,30 @@ export class FeedHelpers {
     let attempts = 0
     while (feedStatus !== 'DONE') {
       // eslint-disable-next-line no-await-in-loop
-      await sleep(sleepTime)
-      // eslint-disable-next-line no-await-in-loop
       const feedResult = await feedsApiClient.getFeed({
         feedId,
       })
       feedStatus = feedResult.data.processingStatus
+
       // eslint-disable-next-line no-console
       console.debug(`Feed status for feedId ${feedId}: ${feedStatus}`)
       resultFeedDocumentId = feedResult.data?.resultFeedDocumentId || ''
 
+      // we may end up in a scenario where we are on the last attempt and we get a
+      // done status but because this increments regardless of the status, we get a rejected response
+      if (feedStatus !== 'DONE') {
+        attempts += 1
+      }
+
       // prevent infinite while loop
-      attempts += 1
       if (attempts > maxAttempts) {
         throw new Error(`Too many attempts to fetch a DONE response for feed ${feedId}`)
+      }
+
+      // prevent the sleep if we're already finished
+      if (feedStatus !== 'DONE') {
+        // eslint-disable-next-line no-await-in-loop
+        await sleep(sleepTime)
       }
     }
 
@@ -103,10 +113,12 @@ export class FeedHelpers {
     // get the feed document itself
     const { data } = await axios.get(feedDocumentResult.data.url)
 
-    const hasErrors = data.match(/ResultDescription>([^<]+)/)?.[1]
+    // amazon returns an xml with this tag <ResultDescription> in it
+    // if there was something wrong  with processing the feed and we want to extract that message and return it
+    const feedErrorMessage = data.match(/ResultDescription>([^<]+)/)?.[1]
 
     return {
-      hasErrors,
+      feedErrorMessage,
       xmlResponse: data,
     }
   }

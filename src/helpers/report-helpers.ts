@@ -11,8 +11,13 @@ export interface ReportParameters {
   marketplaceIds?: string[]
 }
 
-export interface LatestReportOptions {
+export interface ReportOptions {
   parse: boolean
+}
+
+export interface LatestReportOptions {
+  parse?: boolean
+  scheduledOnly?: boolean
 }
 
 export interface GetReportOptions {
@@ -22,24 +27,27 @@ export interface GetReportOptions {
 }
 
 export class ReportHelpers {
-  public static async GetLatestReport(
+  /**
+   * Given a reportId will download the report, handle gzip, optionally parse tsv to json
+   */
+  public static async DownloadReport(
     reportsClient: ReportsApiClientV20210630,
-    reportType: string,
-    latestReportOptions?: LatestReportOptions,
+    reportId: string,
+    reportOptions?: ReportOptions,
   ): Promise<string | Record<string, unknown>[]> {
-    const { parse = true } = latestReportOptions || {}
+    const { parse = true } = reportOptions || {}
 
     // Get a list of the latest report
-    const getReportResponse = await reportsClient.getReports({
-      reportTypes: [reportType],
-      processingStatuses: ['DONE'],
-      pageSize: 1,
+    const getReportResponse = await reportsClient.getReport({
+      reportId,
     })
 
     // ensure we have a document ID
-    const reportDocumentId = getReportResponse.data.reports?.[0]?.reportDocumentId || ''
+    const reportDocumentId = getReportResponse.data?.reportDocumentId || ''
     if (!reportDocumentId) {
-      throw new Error(`No report for ${reportType}`)
+      // amazon couples the concepts "empty report" and "cancelled report"
+      // we want to default to returning an empty report
+      return []
     }
 
     // fetch the report document
@@ -56,6 +64,39 @@ export class ReportHelpers {
       return tabDelimitedToArray(rawData)
     }
     return rawData
+  }
+
+  public static async GetLatestReport(
+    reportsClient: ReportsApiClientV20210630,
+    reportType: string,
+    latestReportOptions?: LatestReportOptions,
+  ): Promise<string | Record<string, unknown>[]> {
+    const { parse = true, scheduledOnly = false } = latestReportOptions || {}
+
+    // Get a list of the latest 10 reports
+    const getReportResponse = await reportsClient.getReports({
+      reportTypes: [reportType],
+      processingStatuses: ['DONE'],
+      pageSize: 10,
+    })
+
+    // if we only want scheduled, find the latest scheduled one
+    const latestReport = scheduledOnly
+      ? getReportResponse.data?.reports?.find((report) => report.reportScheduleId)
+      : getReportResponse.data?.reports?.[0]
+
+    if (!latestReport) {
+      return parse ? [] : ''
+    }
+
+    const { reportId } = latestReport
+
+    // if we failed to get any report, return empty
+    if (!reportId) {
+      return parse ? [] : ''
+    }
+
+    return ReportHelpers.DownloadReport(reportsClient, reportId, { parse })
   }
 
   public static async GetReport(
@@ -80,7 +121,6 @@ export class ReportHelpers {
     const { reportId } = createReportResponse.data
     let reportStatus
     let attempts = 0
-    let reportDocumentId
     while (!['DONE', 'CANCELLED'].includes(reportStatus)) {
       // eslint-disable-next-line no-await-in-loop
       await sleep(sleepTime)
@@ -92,7 +132,6 @@ export class ReportHelpers {
       reportStatus = getReportResponse.data.processingStatus
       // eslint-disable-next-line no-console
       console.debug(`Report status for reportId ${reportId}: ${reportStatus}`)
-      reportDocumentId = getReportResponse.data?.reportDocumentId || ''
 
       // prevent infinite while loop
       attempts += 1
@@ -105,19 +144,6 @@ export class ReportHelpers {
     if (reportStatus === 'CANCELLED') {
       throw new Error(`Report ${reportId} is Cancelled`)
     }
-
-    // fetch the report document
-    const documentResponse = await reportsClient.getReportDocument({
-      reportDocumentId,
-    })
-    // fetch the actual content
-    const contentResponse = await axios.get(documentResponse.data.url)
-    const rawData = contentResponse.data
-
-    // optionally parse the results
-    if (parse) {
-      return tabDelimitedToArray(rawData)
-    }
-    return rawData
+    return ReportHelpers.DownloadReport(reportsClient, reportId, { parse })
   }
 }
