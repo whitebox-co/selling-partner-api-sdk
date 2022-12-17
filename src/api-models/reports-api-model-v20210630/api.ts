@@ -22,7 +22,7 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from './base';
 
 /**
- * 
+ * Response schema.
  * @export
  * @interface CreateReportResponse
  */
@@ -35,7 +35,7 @@ export interface CreateReportResponse {
     reportId: string;
 }
 /**
- * 
+ * Response schema.
  * @export
  * @interface CreateReportScheduleResponse
  */
@@ -111,7 +111,7 @@ export enum CreateReportScheduleSpecificationPeriodEnum {
 }
 
 /**
- * 
+ * Information required to create the report.
  * @export
  * @interface CreateReportSpecification
  */
@@ -167,7 +167,7 @@ export interface ErrorList {
  */
 export interface GetReportsResponse {
     /**
-     * 
+     * A list of reports.
      * @type {Array<Report>}
      * @memberof GetReportsResponse
      */
@@ -205,7 +205,7 @@ export interface ModelError {
     details?: string;
 }
 /**
- * 
+ * Detailed information about the report.
  * @export
  * @interface Report
  */
@@ -291,7 +291,7 @@ export enum ReportProcessingStatusEnum {
 }
 
 /**
- * 
+ * Information required for the report document.
  * @export
  * @interface ReportDocument
  */
@@ -303,13 +303,13 @@ export interface ReportDocument {
      */
     reportDocumentId: string;
     /**
-     * A presigned URL for the report document. This URL expires after 5 minutes.
+     * A presigned URL for the report document. If `compressionAlgorithm` is not returned, you can download the report directly from this URL. This URL expires after 5 minutes.
      * @type {string}
      * @memberof ReportDocument
      */
     url: string;
     /**
-     * If present, the report document contents have been compressed with the provided algorithm.
+     * If the report document contents have been compressed, the compression algorithm used is returned in this property and you must decompress the report when you download. Otherwise, you can download the report directly. Refer to [Step 2. Download the report](doc:reports-api-v2021-06-30-use-case-guide#step-2-download-the-report) in the use case guide, where sample code is provided.
      * @type {string}
      * @memberof ReportDocument
      */
@@ -368,7 +368,7 @@ export interface ReportSchedule {
     nextReportCreationTime?: string;
 }
 /**
- * 
+ * A list of report schedules.
  * @export
  * @interface ReportScheduleList
  */

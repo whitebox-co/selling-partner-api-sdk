@@ -169,7 +169,7 @@ export interface Address {
      */
     City: string;
     /**
-     * The state or province code.
+     * The state or province code. **Note.** Required in the Canada, US, and UK marketplaces. Also required for shipments originating from China.
      * @type {string}
      * @memberof Address
      */
@@ -460,7 +460,7 @@ export interface GetAdditionalSellerInputsRequest {
      */
     ShipFromAddress: Address;
     /**
-     * An Amazon-defined order identifier, in 3-7-7 format. <br>**Pattern** : `[0-9A-Z]{3}-[0-9]{7}-[0-9]{7}`.
+     * An Amazon-defined order identifier, in 3-7-7 format.
      * @type {string}
      * @memberof GetAdditionalSellerInputsRequest
      */
@@ -1038,7 +1038,7 @@ export interface Shipment {
      */
     ShipmentId: string;
     /**
-     * An Amazon-defined order identifier, in 3-7-7 format. <br>**Pattern** : `[0-9A-Z]{3}-[0-9]{7}-[0-9]{7}`.
+     * An Amazon-defined order identifier, in 3-7-7 format.
      * @type {string}
      * @memberof Shipment
      */
@@ -1129,7 +1129,7 @@ export interface Shipment {
  */
 export interface ShipmentRequestDetails {
     /**
-     * An Amazon-defined order identifier, in 3-7-7 format. <br>**Pattern** : `[0-9A-Z]{3}-[0-9]{7}-[0-9]{7}`.
+     * An Amazon-defined order identifier, in 3-7-7 format.
      * @type {string}
      * @memberof ShipmentRequestDetails
      */
@@ -1607,7 +1607,7 @@ export const MerchantFulfillmentApiAxiosParamCreator = function (configuration?:
             };
         },
         /**
-         * Returns a list of shipping service offers that satisfy the specified shipment request details.  **Usage Plan:**  | Rate (requests per second) | Burst | | ---- | ---- | | 1 | 1 |  For more information, see \"Usage Plans and Rate Limits\" in the Selling Partner API documentation.
+         * Returns a list of shipping service offers that satisfy the specified shipment request details.  **Usage Plan:**  | Rate (requests per second) | Burst | | ---- | ---- | | 5 | 10 |  For more information, see \"Usage Plans and Rate Limits\" in the Selling Partner API documentation.
          * @param {GetEligibleShipmentServicesRequest} body 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1770,7 +1770,7 @@ export const MerchantFulfillmentApiFp = function(configuration?: Configuration) 
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Returns a list of shipping service offers that satisfy the specified shipment request details.  **Usage Plan:**  | Rate (requests per second) | Burst | | ---- | ---- | | 1 | 1 |  For more information, see \"Usage Plans and Rate Limits\" in the Selling Partner API documentation.
+         * Returns a list of shipping service offers that satisfy the specified shipment request details.  **Usage Plan:**  | Rate (requests per second) | Burst | | ---- | ---- | | 5 | 10 |  For more information, see \"Usage Plans and Rate Limits\" in the Selling Partner API documentation.
          * @param {GetEligibleShipmentServicesRequest} body 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1855,7 +1855,7 @@ export const MerchantFulfillmentApiFactory = function (configuration?: Configura
             return localVarFp.getAdditionalSellerInputsOld(body, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns a list of shipping service offers that satisfy the specified shipment request details.  **Usage Plan:**  | Rate (requests per second) | Burst | | ---- | ---- | | 1 | 1 |  For more information, see \"Usage Plans and Rate Limits\" in the Selling Partner API documentation.
+         * Returns a list of shipping service offers that satisfy the specified shipment request details.  **Usage Plan:**  | Rate (requests per second) | Burst | | ---- | ---- | | 5 | 10 |  For more information, see \"Usage Plans and Rate Limits\" in the Selling Partner API documentation.
          * @param {GetEligibleShipmentServicesRequest} body 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2059,7 +2059,7 @@ export class MerchantFulfillmentApi extends BaseAPI {
     }
 
     /**
-     * Returns a list of shipping service offers that satisfy the specified shipment request details.  **Usage Plan:**  | Rate (requests per second) | Burst | | ---- | ---- | | 1 | 1 |  For more information, see \"Usage Plans and Rate Limits\" in the Selling Partner API documentation.
+     * Returns a list of shipping service offers that satisfy the specified shipment request details.  **Usage Plan:**  | Rate (requests per second) | Burst | | ---- | ---- | | 5 | 10 |  For more information, see \"Usage Plans and Rate Limits\" in the Selling Partner API documentation.
      * @param {MerchantFulfillmentApiGetEligibleShipmentServicesRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

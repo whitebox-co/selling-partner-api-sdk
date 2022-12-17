@@ -3,6 +3,7 @@ import {
   assertMarketplaceHasSellingPartner,
 } from '@scaleleap/amazon-marketplaces'
 import { jestPollyContext } from '@scaleleap/jest-polly'
+import { AxiosError } from 'axios'
 import { StatusCodes } from 'http-status-codes'
 import { toNumber } from 'lodash'
 
@@ -13,9 +14,12 @@ import {
   SellingPartnerMismatchRegionError,
   SellingPartnerNotFoundRegionError,
   SellingPartnerTooManyRequestsError,
+  SellingPartnerUnknownError,
 } from '../../../src'
 
 describe(`client`, () => {
+  const DEFAULT_INTERNAL_SERVER_ERROR_MESSAGE = 'Request failed with status code 500'
+
   it(`should throw ${SellingPartnerForbiddenError.name} when pass invalid token`, async () => {
     expect.assertions(2)
 
@@ -130,6 +134,76 @@ describe(`client`, () => {
     await expect(client.getMarketplaceParticipations()).rejects.toHaveProperty(
       'rateLimit',
       toNumber(defaultRateLimit),
+    )
+  })
+
+  it(`should handle unknown error`, async () => {
+    expect.assertions(4)
+
+    const { CA } = amazonMarketplaces
+    assertMarketplaceHasSellingPartner(CA)
+
+    const configuration: APIConfigurationParameters = {
+      accessToken: 'Atza|...',
+      region: CA.sellingPartner.region.awsRegion,
+    }
+
+    jestPollyContext.polly.server
+      .any(`${CA.sellingPartner.region.endpoint}/sellers/v1/marketplaceParticipations`)
+      .intercept((request, response) => {
+        response.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+        response.send({
+          errors: [],
+        })
+      })
+
+    const client = new SellersApiClient(configuration)
+
+    await expect(client.getMarketplaceParticipations()).rejects.toThrow(SellingPartnerUnknownError)
+
+    await expect(client.getMarketplaceParticipations()).rejects.toHaveProperty(
+      'message',
+      DEFAULT_INTERNAL_SERVER_ERROR_MESSAGE,
+    )
+    await expect(client.getMarketplaceParticipations()).rejects.toHaveProperty(
+      'code',
+      AxiosError.ERR_BAD_RESPONSE,
+    )
+
+    await expect(client.getMarketplaceParticipations()).rejects.toHaveProperty(
+      'cause',
+      new AxiosError(DEFAULT_INTERNAL_SERVER_ERROR_MESSAGE, AxiosError.ERR_BAD_RESPONSE),
+    )
+  })
+
+  it(`should throw original error if cannot handle`, async () => {
+    expect.assertions(3)
+
+    const { CA } = amazonMarketplaces
+    assertMarketplaceHasSellingPartner(CA)
+
+    const configuration: APIConfigurationParameters = {
+      accessToken: 'Atza|...',
+      region: CA.sellingPartner.region.awsRegion,
+    }
+
+    jestPollyContext.polly.server
+      .any(`${CA.sellingPartner.region.endpoint}/sellers/v1/marketplaceParticipations`)
+      .intercept((request, response) => {
+        response.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+      })
+
+    const client = new SellersApiClient(configuration)
+
+    await expect(client.getMarketplaceParticipations()).rejects.toThrow(AxiosError)
+
+    await expect(client.getMarketplaceParticipations()).rejects.toHaveProperty(
+      'message',
+      DEFAULT_INTERNAL_SERVER_ERROR_MESSAGE,
+    )
+    await expect(client.getMarketplaceParticipations()).rejects.toHaveProperty(
+      'code',
+      AxiosError.ERR_BAD_RESPONSE,
     )
   })
 })

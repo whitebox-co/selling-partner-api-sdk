@@ -3,6 +3,235 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.10.3](https://github.com/ScaleLeap/selling-partner-api-sdk/compare/v6.10.2...v6.10.3) (2022-12-07)
+
+
+### Bug Fixes
+
+* missing data in catalog items api v20220401 ([#650](https://github.com/ScaleLeap/selling-partner-api-sdk/issues/650)) ([38abc00](https://github.com/ScaleLeap/selling-partner-api-sdk/commit/38abc006f5fb7bee1632f2a733373eb1522c250d))
+
+## [6.10.2](https://github.com/ScaleLeap/selling-partner-api-sdk/compare/v6.10.1...v6.10.2) (2022-12-06)
+
+
+### Bug Fixes
+
+* shipment in fulfillment inbound api v0 ([#649](https://github.com/ScaleLeap/selling-partner-api-sdk/issues/649)) ([6170584](https://github.com/ScaleLeap/selling-partner-api-sdk/commit/6170584de30fa2976f49acd6950afbced9359ab4)), closes [#648](https://github.com/ScaleLeap/selling-partner-api-sdk/issues/648)
+
+## [6.10.1](https://github.com/ScaleLeap/selling-partner-api-sdk/compare/v6.10.0...v6.10.1) (2022-11-21)
+
+
+### Reverts
+
+* Revert "chore(deps): update dependency ts-morph to v17 (#637)" (#639) ([692b81c](https://github.com/ScaleLeap/selling-partner-api-sdk/commit/692b81ce40f12d7ed5d737a15bc9168414defe73)), closes [#637](https://github.com/ScaleLeap/selling-partner-api-sdk/issues/637) [#639](https://github.com/ScaleLeap/selling-partner-api-sdk/issues/639)
+
+# [6.10.0](https://github.com/ScaleLeap/selling-partner-api-sdk/compare/v6.9.0...v6.10.0) (2022-09-29)
+
+
+### Features
+
+* add vendor shipping and customer invoice api ([#568](https://github.com/ScaleLeap/selling-partner-api-sdk/issues/568)) ([bd284da](https://github.com/ScaleLeap/selling-partner-api-sdk/commit/bd284daace7c162833d6e529fc76ab6704f20456))
+
+# [6.9.0](https://github.com/ScaleLeap/selling-partner-api-sdk/compare/v6.8.0...v6.9.0) (2022-09-07)
+
+
+### Features
+
+* update catalog item api model v20220401 ([#548](https://github.com/ScaleLeap/selling-partner-api-sdk/issues/548)) ([2f34861](https://github.com/ScaleLeap/selling-partner-api-sdk/commit/2f34861d24867945a776c00ec850b23ac1fc0849))
+
+# [6.8.0](https://github.com/ScaleLeap/selling-partner-api-sdk/compare/v6.7.0...v6.8.0) (2022-08-22)
+
+
+### Features
+
+* add bulk scheduled packages in easy ship model ([#527](https://github.com/ScaleLeap/selling-partner-api-sdk/issues/527)) ([0d79fd2](https://github.com/ScaleLeap/selling-partner-api-sdk/commit/0d79fd2ed176f23e7c2d1a824c99bc2058bcb54a))
+
+# [6.7.0](https://github.com/ScaleLeap/selling-partner-api-sdk/compare/v6.6.0...v6.7.0) (2022-08-12)
+
+
+### Features
+
+* update service api model ([#519](https://github.com/ScaleLeap/selling-partner-api-sdk/issues/519)) ([265490b](https://github.com/ScaleLeap/selling-partner-api-sdk/commit/265490bf48baa435e38efbecb86147bbe15a11b5))
+
+# [6.6.0](https://github.com/ScaleLeap/selling-partner-api-sdk/compare/v6.5.0...v6.6.0) (2022-08-10)
+
+
+### Features
+
+* Improvements to the Orders API in support of Easy Ship shipments ([#518](https://github.com/ScaleLeap/selling-partner-api-sdk/issues/518)) ([0bf157c](https://github.com/ScaleLeap/selling-partner-api-sdk/commit/0bf157c821d5b3b1778d069b2ad32a0431b43b7f))
+
+# [6.5.0](https://github.com/ScaleLeap/selling-partner-api-sdk/compare/v6.4.0...v6.5.0) (2022-07-22)
+
+
+### Features
+
+* sends a message providing the buyer an invoice ([#508](https://github.com/ScaleLeap/selling-partner-api-sdk/issues/508)) ([51f67b6](https://github.com/ScaleLeap/selling-partner-api-sdk/commit/51f67b6a720e262f6577261dd777af83db158978))
+
+# [6.4.0](https://github.com/ScaleLeap/selling-partner-api-sdk/compare/v6.3.1...v6.4.0) (2022-06-13)
+
+
+### Features
+
+* exposes original axios error object ([#479](https://github.com/ScaleLeap/selling-partner-api-sdk/issues/479)) ([134781c](https://github.com/ScaleLeap/selling-partner-api-sdk/commit/134781c67410ee2c1b24646db7f4fb98fb77ad22))
+
+## [6.3.1](https://github.com/ScaleLeap/selling-partner-api-sdk/compare/v6.3.0...v6.3.1) (2022-05-21)
+
+
+### Bug Fixes
+
+* item dimension type in Catalog Item V20220401 ([#460](https://github.com/ScaleLeap/selling-partner-api-sdk/issues/460)) ([cecdc3c](https://github.com/ScaleLeap/selling-partner-api-sdk/commit/cecdc3ca08ad6c96f35b5410e15223e26ba98e00))
+
+# [6.3.0](https://github.com/ScaleLeap/selling-partner-api-sdk/compare/v6.2.4...v6.3.0) (2022-05-19)
+
+
+### Features
+
+* update api models ([#458](https://github.com/ScaleLeap/selling-partner-api-sdk/issues/458)) ([79fb225](https://github.com/ScaleLeap/selling-partner-api-sdk/commit/79fb225d2534f78b164c5e21eb69b4b3638e1f65))
+
+## [6.2.4](https://github.com/ScaleLeap/selling-partner-api-sdk/compare/v6.2.3...v6.2.4) (2022-05-18)
+
+
+### Bug Fixes
+
+* handle all unknown errors ([#454](https://github.com/ScaleLeap/selling-partner-api-sdk/issues/454)) ([c9e1298](https://github.com/ScaleLeap/selling-partner-api-sdk/commit/c9e12988b1603fbc697d372c121f4d0a7927cf88))
+
+## [6.2.3](https://github.com/ScaleLeap/selling-partner-api-sdk/compare/v6.2.2...v6.2.3) (2022-04-27)
+
+
+### Bug Fixes
+
+* **deps:** update dependency axios to v0.27.2 ([ae635ca](https://github.com/ScaleLeap/selling-partner-api-sdk/commit/ae635ca85bdee5bf7c131c46349ff80109037ce4))
+
+## [6.2.2](https://github.com/ScaleLeap/selling-partner-api-sdk/compare/v6.2.1...v6.2.2) (2022-04-27)
+
+
+### Bug Fixes
+
+* **deps:** update dependency axios to v0.27.1 ([fbe65e2](https://github.com/ScaleLeap/selling-partner-api-sdk/commit/fbe65e2b2246da920c1fa921f27466129305882c))
+
+## [6.2.1](https://github.com/ScaleLeap/selling-partner-api-sdk/compare/v6.2.0...v6.2.1) (2022-04-27)
+
+
+### Bug Fixes
+
+* **deps:** update dependency axios to v0.27.0 ([#433](https://github.com/ScaleLeap/selling-partner-api-sdk/issues/433)) ([4461da1](https://github.com/ScaleLeap/selling-partner-api-sdk/commit/4461da1b4c08c64b6d2152e1cdcc35b172e818a2))
+
+# [6.2.0](https://github.com/ScaleLeap/selling-partner-api-sdk/compare/v6.1.0...v6.2.0) (2022-04-14)
+
+
+### Features
+
+* add vendor direct fulfillment and easy ship model ([#424](https://github.com/ScaleLeap/selling-partner-api-sdk/issues/424)) ([0069b77](https://github.com/ScaleLeap/selling-partner-api-sdk/commit/0069b77df6f7b4fd2bddc6c34be62f52cd2ba747))
+
+# [6.1.0](https://github.com/ScaleLeap/selling-partner-api-sdk/compare/v6.0.1...v6.1.0) (2022-03-24)
+
+
+### Features
+
+* Add buyerRequestedCancel parameter to Orders API ([#411](https://github.com/ScaleLeap/selling-partner-api-sdk/issues/411)) ([6174ad6](https://github.com/ScaleLeap/selling-partner-api-sdk/commit/6174ad6ae03fc385fc04bfa08d6d5aabe68abb1d))
+
+## [6.0.1](https://github.com/ScaleLeap/selling-partner-api-sdk/compare/v6.0.0...v6.0.1) (2022-03-10)
+
+
+### Bug Fixes
+
+* **deps:** update dependency axios to v0.26.1 ([6eae899](https://github.com/ScaleLeap/selling-partner-api-sdk/commit/6eae89998c24cafd0769cc1c5207e8061ee5846d))
+
+# [6.0.0](https://github.com/ScaleLeap/selling-partner-api-sdk/compare/v5.5.4...v6.0.0) (2022-03-09)
+
+
+### Features
+
+* update api models ([#397](https://github.com/ScaleLeap/selling-partner-api-sdk/issues/397)) ([e7fbcbb](https://github.com/ScaleLeap/selling-partner-api-sdk/commit/e7fbcbb476ccdb6d656ce96120f8b44076eaaa8e))
+
+
+### BREAKING CHANGES
+
+* - See: https://github.com/ScaleLeap/selling-partner-api-sdk/pull/397
+
+## [5.5.4](https://github.com/ScaleLeap/selling-partner-api-sdk/compare/v5.5.3...v5.5.4) (2022-02-14)
+
+
+### Bug Fixes
+
+* **deps:** update dependency axios to v0.26.0 ([5e4ce81](https://github.com/ScaleLeap/selling-partner-api-sdk/commit/5e4ce81e02983d2b162e8121e06f313532f438e7))
+
+## [5.5.3](https://github.com/ScaleLeap/selling-partner-api-sdk/compare/v5.5.2...v5.5.3) (2022-02-04)
+
+
+### Bug Fixes
+
+* **deps:** update dependency aws4-axios to v2.4.9 ([2042d02](https://github.com/ScaleLeap/selling-partner-api-sdk/commit/2042d022d5d8fd5030799c0ec23583d49386791a))
+
+## [5.5.2](https://github.com/ScaleLeap/selling-partner-api-sdk/compare/v5.5.1...v5.5.2) (2022-01-31)
+
+
+### Bug Fixes
+
+* **deps:** update dependency axios to v0.25.0 ([#360](https://github.com/ScaleLeap/selling-partner-api-sdk/issues/360)) ([33a0e4a](https://github.com/ScaleLeap/selling-partner-api-sdk/commit/33a0e4a024f7a8988cf726b6fd8d11bb1383fd9d))
+
+## [5.5.1](https://github.com/ScaleLeap/selling-partner-api-sdk/compare/v5.5.0...v5.5.1) (2021-12-27)
+
+
+### Bug Fixes
+
+* **deps:** update dependency http-status-codes to v2.2.0 ([be66cbd](https://github.com/ScaleLeap/selling-partner-api-sdk/commit/be66cbd6400cf6a4d209e61dc496a6665d527439))
+
+# [5.5.0](https://github.com/ScaleLeap/selling-partner-api-sdk/compare/v5.4.0...v5.5.0) (2021-12-13)
+
+
+### Features
+
+* update Order v0 API ([#331](https://github.com/ScaleLeap/selling-partner-api-sdk/issues/331)) ([f817194](https://github.com/ScaleLeap/selling-partner-api-sdk/commit/f8171949ab9067478ff82baf17a84817ade13693))
+
+# [5.4.0](https://github.com/ScaleLeap/selling-partner-api-sdk/compare/v5.3.1...v5.4.0) (2021-11-23)
+
+
+### Features
+
+* update vendor order item status ([#319](https://github.com/ScaleLeap/selling-partner-api-sdk/issues/319)) ([c2bcc4c](https://github.com/ScaleLeap/selling-partner-api-sdk/commit/c2bcc4c423c710ee6ecfb062a8615e2cfe862bb9))
+
+## [5.3.1](https://github.com/ScaleLeap/selling-partner-api-sdk/compare/v5.3.0...v5.3.1) (2021-11-22)
+
+
+### Bug Fixes
+
+* **deps:** update dependency aws4-axios to v2.4.6 ([b3653a4](https://github.com/ScaleLeap/selling-partner-api-sdk/commit/b3653a4fbb9d78086c7809ab7cb30781cb205ac8))
+
+# [5.3.0](https://github.com/ScaleLeap/selling-partner-api-sdk/compare/v5.2.0...v5.3.0) (2021-11-16)
+
+
+### Features
+
+* add the PRODUCT_TYPE_DEFINITION_CHANGE notification type ([#309](https://github.com/ScaleLeap/selling-partner-api-sdk/issues/309)) ([2aa8d43](https://github.com/ScaleLeap/selling-partner-api-sdk/commit/2aa8d4366b535947d7128a05af182e0f992575a7))
+
+# [5.2.0](https://github.com/ScaleLeap/selling-partner-api-sdk/compare/v5.1.2...v5.2.0) (2021-11-08)
+
+
+### Features
+
+* add Kilograms and Pounds to weight unit ([#299](https://github.com/ScaleLeap/selling-partner-api-sdk/issues/299)) ([7bad0cf](https://github.com/ScaleLeap/selling-partner-api-sdk/commit/7bad0cfa52545e6a65d7dca8327fbfe9c3f35109))
+
+## [5.1.2](https://github.com/ScaleLeap/selling-partner-api-sdk/compare/v5.1.1...v5.1.2) (2021-10-28)
+
+
+### Bug Fixes
+
+* **deps:** update dependency axios to v0.24.0 ([#259](https://github.com/ScaleLeap/selling-partner-api-sdk/issues/259)) ([40b6773](https://github.com/ScaleLeap/selling-partner-api-sdk/commit/40b67739a486a0186930037a85d895206d058832))
+
+## [5.1.1](https://github.com/ScaleLeap/selling-partner-api-sdk/compare/v5.1.0...v5.1.1) (2021-10-27)
+
+
+### Bug Fixes
+
+* **deps:** update node.js to v16 ([#286](https://github.com/ScaleLeap/selling-partner-api-sdk/issues/286)) ([3827f14](https://github.com/ScaleLeap/selling-partner-api-sdk/commit/3827f140860645e1ebaf79032520bce33529edbb))
+
+# [5.1.0](https://github.com/ScaleLeap/selling-partner-api-sdk/compare/v5.0.2...v5.1.0) (2021-09-17)
+
+
+### Features
+
+* update for tds reimbursement ([#244](https://github.com/ScaleLeap/selling-partner-api-sdk/issues/244)) ([95d3928](https://github.com/ScaleLeap/selling-partner-api-sdk/commit/95d392896fd159d27092e0c34891980de3564e18))
+
 ## [5.0.2](https://github.com/ScaleLeap/selling-partner-api-sdk/compare/v5.0.1...v5.0.2) (2021-09-06)
 
 

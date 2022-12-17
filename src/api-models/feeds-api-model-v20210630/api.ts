@@ -41,7 +41,7 @@ export interface CreateFeedDocumentResponse {
     url: string;
 }
 /**
- * 
+ * Specifies the content type for the createFeedDocument operation.
  * @export
  * @interface CreateFeedDocumentSpecification
  */
@@ -54,7 +54,7 @@ export interface CreateFeedDocumentSpecification {
     contentType: string;
 }
 /**
- * 
+ * Response schema.
  * @export
  * @interface CreateFeedResponse
  */
@@ -67,7 +67,7 @@ export interface CreateFeedResponse {
     feedId: string;
 }
 /**
- * 
+ * Information required to create the feed.
  * @export
  * @interface CreateFeedSpecification
  */
@@ -111,7 +111,7 @@ export interface ErrorList {
     errors: Array<Error>;
 }
 /**
- * 
+ * Detailed information about the feed.
  * @export
  * @interface Feed
  */
@@ -179,7 +179,7 @@ export enum FeedProcessingStatusEnum {
 }
 
 /**
- * 
+ * Information required for the feed document.
  * @export
  * @interface FeedDocument
  */
@@ -191,13 +191,13 @@ export interface FeedDocument {
      */
     feedDocumentId: string;
     /**
-     * A presigned URL for the feed document. This URL expires after 5 minutes.
+     * A presigned URL for the feed document. If `compressionAlgorithm` is not returned, you can download the feed directly from this URL. This URL expires after 5 minutes.
      * @type {string}
      * @memberof FeedDocument
      */
     url: string;
     /**
-     * If present, the feed document contents are compressed using the indicated algorithm.
+     * If the feed document contents have been compressed, the compression algorithm used is returned in this property and you must decompress the feed when you download. Otherwise, you can download the feed directly. Refer to [Step 7. Download the feed processing report](doc:feeds-api-v2021-06-30-use-case-guide#step-7-download-the-feed-processing-report) in the use case guide, where sample code is provided.
      * @type {string}
      * @memberof FeedDocument
      */
@@ -219,7 +219,7 @@ export enum FeedDocumentCompressionAlgorithmEnum {
  */
 export interface GetFeedsResponse {
     /**
-     * 
+     * A list of feeds.
      * @type {Array<Feed>}
      * @memberof GetFeedsResponse
      */
