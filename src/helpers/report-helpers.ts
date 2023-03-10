@@ -65,7 +65,7 @@ export class ReportHelpers {
     // amazon sometimes encodes the response as gzip and specifies the compressionAlgorithm
     // we want to decode the data and make this process transparent to the user
     if (documentResponse.data.compressionAlgorithm === 'GZIP') {
-      rawBuffer = await zlib.gunzipSync(contentResponse.data)
+      rawBuffer = zlib.gunzipSync(contentResponse.data)
     }
 
     const rawData = Buffer.from(rawBuffer).toString()
