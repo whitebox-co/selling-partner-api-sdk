@@ -1,4 +1,5 @@
 import axios from 'axios'
+import zlib from 'zlib'
 
 // eslint-disable-next-line import/no-cycle
 import { ReportsApiClientV20210630 } from '../api-clients/reports-api-client-v20210630'
@@ -56,8 +57,18 @@ export class ReportHelpers {
     })
 
     // fetch the raw content
-    const contentResponse = await axios.get(documentResponse.data.url)
-    const rawData = contentResponse.data
+    const contentResponse = await axios.get(documentResponse.data.url, {
+      responseType: 'arraybuffer',
+    })
+
+    let rawBuffer = contentResponse.data
+    // amazon sometimes encodes the response as gzip and specifies the compressionAlgorithm
+    // we want to decode the data and make this process transparent to the user
+    if (documentResponse.data.compressionAlgorithm === 'GZIP') {
+      rawBuffer = zlib.gunzipSync(contentResponse.data)
+    }
+
+    const rawData = Buffer.from(rawBuffer).toString()
 
     // optionally parse the results
     if (parse) {
